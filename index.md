@@ -1,37 +1,105 @@
-## Welcome to GitHub Pages
+public class HashCollection {
+	
+	
+	private Object[] hashValue;
+	private Object[] quote;
+	private Object[] tail;
+	
+	public void addd(Object obj) {
+		
+		if(hashValue == null) {
+			
+			hashValue = new Object[400];
+		}
+		
+		int index = obj.hashCode() % hashValue.length;
+		
+		if(index <= -1) {
+			
+			index = ~index;
+		}
+		
+		if(hashValue[index] == null) {
+			
+			hashValue[index] = new Object[] {obj, null};
+			quote = null;
+		}else {
+			
+			Object[] temporaryObj = new Object[] {obj, null};
+			
+			if(quote == null ) {
+				
+				quote = (Object[])hashValue[index];
+				quote[1] = temporaryObj;
+				tail = temporaryObj;
+				
+			}else {
+				
+				tail[1] = temporaryObj;
+				tail = temporaryObj;
+				
+			}
+		}
+		
+	
+	}
+	
+	public boolean judgment(Object obj) {
+		
+		int index = obj.hashCode() % hashValue.length;
+		if(index <= -1) {
+			index = ~index;
+		}
+		
+		if(hashValue[index] != null) {
+			Object[] quote1 = (Object[])hashValue[index];
+			
+			while(true) {
+				if(quote1 == null) {
+					return false;
+				}
+				
+				if(obj.equals(quote1[0])) {
+					return true;
+				}else {
+					quote1 = (Object[])quote1[1];
+				}
+			}
+		}
+	return false;
+	}
+	
+	int i=0;
+	public void printValue(Object[] obj) {
+	Object[] thisObj = obj;
+		while(true) {
+	    if(thisObj == null) {
+	    	break;
+	    }else {
+	    	
+	         System.out.println(thisObj[0]);
+	         System.out.println(i++);
+	         thisObj = (Object[])thisObj[1];
+	  }
+	}
+}
 
-You can use the [editor on GitHub](https://github.com/Zero7073/Java/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+	int index = 0;
+	public void  getValue() {
+		
+		Object[] value = (Object[])hashValue[index];
+		while(true) {
+			if(index >= hashValue.length-1) {
+				break;
+			}
+		
+			if(value!= null) {
+			    printValue(value);
+			} 
+			index++;
+		    value = (Object[])hashValue[index];   
+	  }
+	    
+	}
+}
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Zero7073/Java/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
